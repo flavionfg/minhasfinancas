@@ -1,9 +1,12 @@
 package com.fquadros.minhasfinancas.model;
 
+import lombok.*;
+
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
+@Builder
+@Data
 @Table( name = "usuario" , schema = "financas")
 public class Usuario {
 
@@ -21,61 +24,11 @@ public class Usuario {
     @Column(name = "senha")
     private String senha;
 
-    public Long getId() {
-        return id;
-    }
+//    Testando o método Builder!
+//
+//    public static void main(String [] args){
+//
+//        Usuario.builder().nome("Flavio").email("flavionfg@gmail.com").senha("123456").build();
+//    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id) &&
-                Objects.equals(nome, usuario.nome) &&
-                Objects.equals(email, usuario.email) &&
-                Objects.equals(senha, usuario.senha);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nome, email, senha);
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
-                '}';
-    }
 }
