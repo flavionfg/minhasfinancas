@@ -5,6 +5,7 @@ import com.fquadros.minhasfinancas.model.enums.TipoLançamento;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.convert.Jsr310Converters;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -38,7 +39,7 @@ public class Lancamento {
     private BigDecimal valor;
 
     @Column(name = "data_cadastro")
-    @Convert(converter = Jsr310Converters.LocalDateToDateConverter.class)
+    @Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
     private LocalDate dataCadastro;
 
     @Column(name = "tipo")
