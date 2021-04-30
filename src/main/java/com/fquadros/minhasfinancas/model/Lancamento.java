@@ -2,8 +2,10 @@ package com.fquadros.minhasfinancas.model;
 
 import com.fquadros.minhasfinancas.model.enums.StatusLancamento;
 import com.fquadros.minhasfinancas.model.enums.TipoLançamento;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
@@ -14,6 +16,8 @@ import java.time.LocalDate;
 @Entity
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table( name = "lancamento", schema = "financas")
 public class Lancamento {
 

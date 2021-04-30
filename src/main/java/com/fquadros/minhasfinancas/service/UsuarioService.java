@@ -2,6 +2,8 @@ package com.fquadros.minhasfinancas.service;
 
 import com.fquadros.minhasfinancas.model.Usuario;
 
+import java.util.Optional;
+
 public interface UsuarioService {
 
     Usuario autenticar(String email, String senha);
@@ -10,4 +12,5 @@ public interface UsuarioService {
 
     void validarEmail(String email);
 
+    Optional<Usuario> obterPorId(Long id);
 }
