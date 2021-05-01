@@ -8,6 +8,7 @@ import com.fquadros.minhasfinancas.model.enums.StatusLancamento;
 import com.fquadros.minhasfinancas.model.enums.TipoLançamento;
 import com.fquadros.minhasfinancas.service.LancamentoService;
 import com.fquadros.minhasfinancas.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,19 +18,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/lancamentos")
+@RequiredArgsConstructor
 public class LancamentosResource {
 
-    private LancamentoService service;
-    private UsuarioService usuarioService;
-    private String minhaVar;
-    private String sdas;
-    private Optional<Usuario> usuarioOptional;
-    private List<Lancamento> lancamentos;
-
-    public LancamentosResource(LancamentoService service, UsuarioService usuarioService) {
-        this.service = service;
-        this.usuarioService = usuarioService;
-    }
+    private final LancamentoService service;
+    private final UsuarioService usuarioService;
 
     @GetMapping
     public ResponseEntity buscar(
@@ -103,9 +96,12 @@ public class LancamentosResource {
                 .orElseThrow(() -> new RegraDeNegocioExpection("Usuario não encontrado para o id informado"));
 
         lancamento.setUsuario(usuario);
-        lancamento.setTipo(TipoLançamento.valueOf(dto.getTipo()));
-        lancamento.setStatus(StatusLancamento.valueOf(dto.getStatus()));
-
+        if (dto.getTipo() != null){
+            lancamento.setTipo(TipoLançamento.valueOf(dto.getTipo()));
+        }
+        if (dto.getStatus() != null){
+            lancamento.setStatus(StatusLancamento.valueOf(dto.getStatus()));
+        }
         return lancamento;
     }
 }

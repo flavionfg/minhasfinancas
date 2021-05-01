@@ -5,6 +5,7 @@ import com.fquadros.minhasfinancas.exception.ErroAutenticacao;
 import com.fquadros.minhasfinancas.exception.RegraDeNegocioExpection;
 import com.fquadros.minhasfinancas.model.Usuario;
 import com.fquadros.minhasfinancas.service.UsuarioService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,13 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@RequiredArgsConstructor
 public class UsuarioResource {
 
-    private UsuarioService service;
-
-    public UsuarioResource(UsuarioService service){
-        this.service = service;
-    }
+    private final UsuarioService service;
 
     @PostMapping("/autenticar")
     public ResponseEntity autenticar(@RequestBody UsuarioDTO dto){
@@ -31,7 +29,6 @@ public class UsuarioResource {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 
     @PostMapping
     public ResponseEntity salvar(@RequestBody UsuarioDTO dto){
@@ -48,5 +45,5 @@ public class UsuarioResource {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 }
+
