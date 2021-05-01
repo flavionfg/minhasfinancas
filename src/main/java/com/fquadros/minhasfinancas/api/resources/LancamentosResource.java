@@ -66,6 +66,7 @@ public class LancamentosResource {
             try {
                 Lancamento lancamento = converter(dto);
                 lancamento.setId(entity.getId());
+                service.atualizar(lancamento);
                 return ResponseEntity.ok(lancamento);
             }catch(RegraDeNegocioExpection e){
                 return ResponseEntity.badRequest().body(e.getMessage());
