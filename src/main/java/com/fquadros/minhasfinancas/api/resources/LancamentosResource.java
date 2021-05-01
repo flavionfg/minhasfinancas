@@ -46,7 +46,7 @@ public class LancamentosResource {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
         }).orElseGet( () ->
-             new ResponseEntity("Lançamento não encontrado na base de dados", HttpStatus.BAD_REQUEST);
+             new ResponseEntity("Lançamento não encontrado na base de dados", HttpStatus.BAD_REQUEST));
     }
 
     @DeleteMapping("{id}")
