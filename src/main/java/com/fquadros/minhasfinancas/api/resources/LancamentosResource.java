@@ -1,5 +1,6 @@
 package com.fquadros.minhasfinancas.api.resources;
 
+import com.fquadros.minhasfinancas.api.dto.AtualizarStatusDTO;
 import com.fquadros.minhasfinancas.api.dto.LancamentoDTO;
 import com.fquadros.minhasfinancas.exception.RegraDeNegocioExpection;
 import com.fquadros.minhasfinancas.model.Lancamento;
@@ -23,6 +24,7 @@ public class LancamentosResource {
 
     private final LancamentoService service;
     private final UsuarioService usuarioService;
+    private StatusLancamento statusSelecionado;
 
     @GetMapping
     public ResponseEntity buscar(
@@ -73,6 +75,25 @@ public class LancamentosResource {
             }
         }).orElseGet( () ->
              new ResponseEntity("Lançamento não encontrado na base de dados", HttpStatus.BAD_REQUEST));
+    }
+
+    @PutMapping("{id}/atualiza-status")
+    public ResponseEntity atulizarStatus(@PathVariable("id") Long id, @RequestBody AtualizarStatusDTO dto){
+        return service.obterPorId(id).map(entity -> {
+            StatusLancamento statusSelecionado = StatusLancamento.valueOf(dto.getStatus());
+            if (statusSelecionado == null){
+                return ResponseEntity.badRequest().body("Não foi possivel atualizar o status do lançamento, envie um status valido");
+            }
+            try{
+                entity.setStatus(statusSelecionado);
+                service.atualizar(entity);
+                return ResponseEntity.ok(entity);
+            }catch(RegraDeNegocioExpection e){
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+
+        }).orElseGet( () ->
+                new ResponseEntity("Lançamento não encontrado na base de dados.", HttpStatus.BAD_REQUEST));
     }
 
     @DeleteMapping("{id}")
