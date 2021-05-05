@@ -3,6 +3,7 @@ package com.fquadros.minhasfinancas.service;
 import com.fquadros.minhasfinancas.model.Lancamento;
 import com.fquadros.minhasfinancas.model.enums.StatusLancamento;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,4 +22,6 @@ public interface LancamentoService {
     void validar(Lancamento lancamento);
 
     Optional<Lancamento> obterPorId(Long id);
+
+    BigDecimal obterSaladoPorUsuario(Long id);
 }

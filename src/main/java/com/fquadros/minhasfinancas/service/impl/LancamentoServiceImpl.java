@@ -3,6 +3,7 @@ package com.fquadros.minhasfinancas.service.impl;
 import com.fquadros.minhasfinancas.exception.RegraDeNegocioExpection;
 import com.fquadros.minhasfinancas.model.Lancamento;
 import com.fquadros.minhasfinancas.model.enums.StatusLancamento;
+import com.fquadros.minhasfinancas.model.enums.TipoLançamento;
 import com.fquadros.minhasfinancas.model.repository.LancamentoRepository;
 import com.fquadros.minhasfinancas.service.LancamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,5 +96,22 @@ public class LancamentoServiceImpl implements LancamentoService {
     @Override
     public Optional<Lancamento> obterPorId(Long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public BigDecimal obterSaladoPorUsuario(Long id) {
+       BigDecimal receitas = repository.obterSladoPorTipoLancamentoEUsuario(id, TipoLançamento.RECEITA);
+       BigDecimal despesas = repository.obterSladoPorTipoLancamentoEUsuario(id, TipoLançamento.DESPESA);
+
+        if (receitas == null){
+            receitas = BigDecimal.ZERO;
+        }
+
+        if (despesas == null){
+            despesas = BigDecimal.ZERO;
+        }
+
+        return receitas.subtract(despesas);
     }
 }
