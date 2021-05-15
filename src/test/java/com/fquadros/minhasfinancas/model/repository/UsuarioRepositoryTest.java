@@ -71,17 +71,14 @@ class UsuarioRepositoryTest {
         Optional<Usuario> result = repository.findByEmail("usuario@email.com");
 
         Assertions.assertTrue(result.isPresent());
-
     }
 
     @Test
     public void deveRetornarVazioAoBuscarUsuarioPorEmailQuandoNaoExisteNaBase(){
-
         //verificação
         Optional<Usuario> result = repository.findByEmail("usuario@email.com");
 
         Assertions.assertTrue(!result.isPresent());
-
     }
 
     public static Usuario criarUsuario(){
