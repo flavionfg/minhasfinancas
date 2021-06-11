@@ -1,6 +1,7 @@
 package com.fquadros.minhasfinancas.model.repository;
 
 import com.fquadros.minhasfinancas.model.Lancamento;
+import com.fquadros.minhasfinancas.model.enums.StatusLancamento;
 import com.fquadros.minhasfinancas.model.enums.TipoLançamento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +13,10 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 
     @Query( value =
             " select sum(l.valor) from Lancamento l join l.usuario u " +
-            " where u.id = :idUsuario and l.tipo =:tipo group by u ")
-    BigDecimal obterSladoPorTipoLancamentoEUsuario(@Param("idUsuario") Long IdUsuario,@Param("tipo") TipoLançamento tipo);
+            " where u.id = :idUsuario and l.tipo =:tipo and l.status = :status group by u ")
+    BigDecimal obterSladoPorTipoLancamentoEUsuarioEstatus(
+            @Param("idUsuario") Long IdUsuario,
+            @Param("tipo") TipoLançamento tipo,
+            @Param("status") StatusLancamento status);
 
 }
