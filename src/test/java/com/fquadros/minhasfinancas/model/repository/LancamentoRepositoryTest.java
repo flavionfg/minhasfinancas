@@ -58,7 +58,7 @@ public class LancamentoRepositoryTest {
     public void deveAtualizarUmLancamento(){
         Lancamento lancamento = CriarLancamento();
 
-        lancamento.setAno(2018);
+        lancamento.setAno(2021);
         lancamento.setDescricao("Teste Atualizado");
         lancamento.setStatus(StatusLancamento.CANCELADO);
 
@@ -68,7 +68,7 @@ public class LancamentoRepositoryTest {
 
         boolean AnoPersistido;
 
-        if (lancamentoAtulizado.getAno() == 2018
+        if (lancamentoAtulizado.getAno() == 2021
                 && lancamentoAtulizado.getDescricao() == "Teste Atualizado"
                 && lancamentoAtulizado.getStatus() == StatusLancamento.CANCELADO ){
             AnoPersistido = true;
